@@ -7,13 +7,8 @@ import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ShareActionProvider;
-import android.util.FloatMath;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,8 +27,6 @@ import java.io.IOException;
 
 import imageserach.fieldwire.amko0l.com.imagesearch.R;
 import imageserach.fieldwire.amko0l.com.imagesearch.utils.Utils;
-
-import static android.R.attr.start;
 
 public class ImageActivity extends AppCompatActivity {
 
@@ -58,7 +51,7 @@ public class ImageActivity extends AppCompatActivity {
 
         ImageView fullImageView = (ImageView) findViewById(R.id.fullImageid);
         String fullImageString = getIntent().getExtras().getString("imageuri");
-        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_indicator_main_grid);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading_indicator_main_grid);
 
         Glide
                 .with(this)
@@ -95,7 +88,7 @@ public class ImageActivity extends AppCompatActivity {
         fullImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.d(TAG,"onTouch() ");
+                Log.d(TAG, "onTouch() ");
                 ImageView view = (ImageView) v;
 
                 // Handle touch events here...
@@ -145,14 +138,18 @@ public class ImageActivity extends AppCompatActivity {
         });
     }
 
-    /** Determine the space between the first two fingers */
+    /**
+     * Determine the space between the first two fingers
+     */
     private float spacing(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
-        return (float)Math.sqrt(x * x + y * y);
+        return (float) Math.sqrt(x * x + y * y);
     }
 
-    /** Calculate the mid point of the first two fingers */
+    /**
+     * Calculate the mid point of the first two fingers
+     */
     private void midPoint(PointF point, MotionEvent event) {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);

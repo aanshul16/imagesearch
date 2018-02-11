@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/common_margin"
-        android:scaleType="matrix" />
+        android:scaleType="center" />
 
     <ProgressBar
         android:id="@+id/loading_indicator_main_grid"
@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:indeterminateTint="@color/colorPrimary"
         android:visibility="visible" />
 
 </RelativeLayout>

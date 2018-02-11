@@ -120,6 +120,10 @@ public class ImageHolderFragment extends Fragment {
         loadingIndicator = (ProgressBar) view.findViewById(R.id.loadIndicator);
         emptyTextView = (TextView) view.findViewById(R.id.empty);
 
+        if (!ConnectivityUtils.isConnected(getActivity())) {
+            emptyTextView.setText(R.string.no_internet);
+        }
+
         // Set the adapter
         if (view instanceof LinearLayout) {
             Context context = view.getContext();

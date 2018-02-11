@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/item_image"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/gird_item_height"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
         android:scaleType="center" />
 
     <ProgressBar
@@ -17,4 +18,4 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|center_horizontal|center_vertical"
         android:indeterminateTint="@color/colorPrimary" />
-</LinearLayout>
+</FrameLayout>

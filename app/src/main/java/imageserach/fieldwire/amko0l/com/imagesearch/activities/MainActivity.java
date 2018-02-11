@@ -1,5 +1,7 @@
 package imageserach.fieldwire.amko0l.com.imagesearch.activities;
 
+import android.app.ActionBar;
+import android.support.v4.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +11,13 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import java.util.List;
 
 import imageserach.fieldwire.amko0l.com.imagesearch.adapter.MyItemRecyclerViewAdapter;
 import imageserach.fieldwire.amko0l.com.imagesearch.R;
@@ -32,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         searchHistoryFragment = SearchHistoryFragment.newInstance(0);
         FragmentManagerUtil.createFragment(R.id.imageSearchHolder, searchHistoryFragment,
@@ -55,6 +63,18 @@ public class MainActivity extends AppCompatActivity implements
         searchView.setIconifiedByDefault(false);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     // Receive query from searchWidget
@@ -83,13 +103,17 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        Log.i("Anshul", "Count value" + count + ",,imageHolderFragment" + imageHolderFragment);
         if (count == 0) {
             super.onBackPressed();
             //additional code
         } else {
-            getFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
+            imageHolderFragment = null;
         }
+        Log.i("Anshul", "Count value end" + count + ",,imageHolderFragment" + imageHolderFragment);
     }
 
     @Override

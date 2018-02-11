@@ -46,6 +46,7 @@ public class SearchHistoryFragment extends Fragment {
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
     List<String> searchHistoryArray;
+    private MyItemRecyclerViewAdapter myItemRecyclerViewAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -83,9 +84,12 @@ public class SearchHistoryFragment extends Fragment {
         }
 
         sharedPref = getActivity().getSharedPreferences(prefName, MODE_PRIVATE);
-
-        Set<String> historyset = sharedPref.getStringSet(searchHistory, new HashSet<String>());
         searchHistoryArray = new ArrayList<>();
+    }
+
+    private void updateHistoryList() {
+        searchHistoryArray.clear();
+        Set<String> historyset = sharedPref.getStringSet(searchHistory, new HashSet<String>());
         searchHistoryArray.addAll(historyset);
     }
 
@@ -102,7 +106,8 @@ public class SearchHistoryFragment extends Fragment {
         if (view instanceof LinearLayout) {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(searchHistoryArray, mListener));
+            myItemRecyclerViewAdapter = new MyItemRecyclerViewAdapter(searchHistoryArray, mListener);
+            recyclerView.setAdapter(myItemRecyclerViewAdapter);
         }
         return view;
     }
@@ -110,6 +115,13 @@ public class SearchHistoryFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateHistoryList();
+        myItemRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     // Handle query from seacrchWidget
